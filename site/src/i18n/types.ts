@@ -59,7 +59,7 @@ export interface Copy {
     under: string;
     stamp: string; // followed by the source links
   };
-  privacy: { eyebrow: string; headline: string; columns: { label: string; body: string }[]; under: string; site: string };
+  privacy: { eyebrow: string; headline: string; columns: { label: string; body: string }[]; under: string; site: string; source: string; sourceLink: string };
   setup: {
     eyebrow: string;
     headline: string;
@@ -73,7 +73,7 @@ export interface Copy {
   faq: { headline: string; items: { q: string; a: string }[] };
   agents: { eyebrow: string; headline: string; featureHead: string; features: Record<FeatureId, string> };
   close: { summary: string; title: string; cta: string; aside: string };
-  footer: { blurb: string; getStarted: string; privacy: string; faq: string; releaseNotes: string; cookies: string; policy: string };
+  footer: { blurb: string; getStarted: string; privacy: string; faq: string; releaseNotes: string; cookies: string; policy: string; source: string };
   // the banner (ADR 0006): what is kept, what each button does, where to change it; the vendor is in the policy
   consent: { label: string; title: string; body: string; note: string; allow: string; decline: string };
   notFound: { title: string; body: string; home: string };
