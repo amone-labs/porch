@@ -2883,7 +2883,7 @@ dependencies = [
 
 [[package]]
 name = "porch-app"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "mac-notification-sys",
  "objc2 0.5.2",
@@ -2903,7 +2903,7 @@ dependencies = [
 
 [[package]]
 name = "porch-cli"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "porch-core",
  "serde_json",
@@ -2911,7 +2911,7 @@ dependencies = [
 
 [[package]]
 name = "porch-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde",
  "serde_json",
@@ -2921,7 +2921,7 @@ dependencies = [
 
 [[package]]
 name = "porch-hook"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "porch-core",
  "serde_json",
