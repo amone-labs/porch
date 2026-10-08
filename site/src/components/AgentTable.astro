@@ -1,0 +1,23 @@
+---
+import { AGENTS, FEATURES } from "../agents";
+import type { Copy, Locale } from "../i18n/types";
+import { labelClass } from "../i18n/util";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+---
+<section id="agents" class="block" data-section="agents">
+  <div class="wrap stack">
+    <p class={labelClass(locale)}>{t.agents.eyebrow}</p>
+    <h2 class="h2">{t.agents.headline}</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>{t.agents.featureHead}</th>{AGENTS.map((a) => <th>{a.name[locale]}</th>)}</tr></thead>
+        <tbody>
+          {FEATURES.map((f) => (
+            <tr><td>{t.agents.features[f]}</td>{AGENTS.map((a) => <td>{a.features[f][locale]}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

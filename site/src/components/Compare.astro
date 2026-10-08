@@ -1,0 +1,42 @@
+---
+import { FEATURES, MARKS, TOOLS } from "../compare";
+import type { Copy, Locale } from "../i18n/types";
+import { labelClass } from "../i18n/util";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+const c = t.compare;
+---
+<section id="compare" class="block" data-section="compare">
+  <div class="wrap stack">
+    <p class={labelClass(locale)}>{c.eyebrow}</p>
+    <h2 class="h2">{c.headline}</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>{c.feature}</th>{TOOLS.map((tool, i) => <th class:list={["tool", i === 0 && "ours"]}>{tool.name}</th>)}</tr></thead>
+        <tbody>
+          {FEATURES.map((f) => (
+            <tr>
+              <td>{c.features[f]}</td>
+              {MARKS[f].map((m, i) => <td class:list={["mark", i === 0 && "ours", m === "O" && "yes"]}>{m}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">{c.under}</p>
+    <p class="faint small sources">
+      {c.legend} · {c.stamp}{" "}
+      {TOOLS.filter((tool) => tool.url).map((tool, i) => <>{i > 0 && " · "}<a href={tool.url} rel="noopener">{tool.name}</a></>)}
+    </p>
+  </div>
+</section>
+<style>
+  .table-wrap { overflow-x: auto; }
+  /* base .table gives every cell 160px; seven columns of marks need far less, the feature column takes the rest */
+  .table td.mark, .table th.tool { min-width: 0; width: 96px; text-align: center; white-space: nowrap; }
+  .table td:first-child { min-width: 200px; }
+  .mark { color: rgb(var(--faint)); font-variant-numeric: tabular-nums; }
+  .mark.yes { color: rgb(var(--text)); }
+  .ours { background: rgb(var(--raised)); color: rgb(var(--text)); }
+  .sources a { color: inherit; }
+</style>

@@ -1,0 +1,42 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+// Empty without PUBLIC_POSTHOG_KEY: analytics.ts then loads nothing and the banner never shows (ADR 0006).
+const key = import.meta.env.PUBLIC_POSTHOG_KEY ?? "";
+const policy = locale === "ko" ? "/ko/privacy/" : "/privacy/";
+// A card in the bottom-right corner, as product sites tend to place it: what the site keeps, what each choice does,
+// where to change it and the policy. Two buttons of the same weight, no per-category choice (ADR 0006).
+---
+<div id="consent" class="consent" role="region" aria-label={t.consent.label} data-key={key} hidden>
+  <p class="title">{t.consent.title}</p>
+  <p class="body">{t.consent.body}</p>
+  <p class="note">{t.consent.note} <a class="policy" href={policy}>{t.footer.policy}</a></p>
+  <div class="actions">
+    <button type="button" class="btn btn-ghost" data-consent="decline">{t.consent.decline}</button>
+    <button type="button" class="btn btn-ghost" data-consent="allow">{t.consent.allow}</button>
+  </div>
+</div>
+<script>
+  import { start } from "../analytics";
+  start();
+</script>
+<style>
+  .consent { position: fixed; right: 20px; bottom: 20px; z-index: 1000; width: 360px; max-width: calc(100vw - 24px);
+    display: flex; flex-direction: column; gap: 8px; padding: 18px 18px 16px;
+    background: rgb(var(--elevated)); border: 1px solid rgb(var(--border)); border-radius: var(--r-modal); box-shadow: var(--sh-pop);
+    animation: consent-in 0.24s cubic-bezier(0.22, 1, 0.36, 1); }
+  .consent[hidden] { display: none; }
+  @keyframes consent-in { from { opacity: 0; transform: translateY(8px); } }
+  @media (prefers-reduced-motion: reduce) { .consent { animation: none; } }
+  p { margin: 0; }
+  .title { font-size: 14px; font-weight: 600; color: rgb(var(--text)); }
+  .body { font-size: 13px; line-height: 1.55; color: rgb(var(--muted)); }
+  .note { font-size: 12px; line-height: 1.5; color: rgb(var(--faint)); }
+  .policy { color: rgb(var(--muted)); text-decoration: underline; text-decoration-color: rgb(var(--border)); text-underline-offset: 3px; transition: color var(--t-fast); }
+  .policy:hover { color: rgb(var(--text)); }
+  :lang(ko) .body, :lang(ko) .note { word-break: keep-all; }
+  .actions { display: flex; gap: 8px; margin-top: 8px; }
+  .actions .btn { flex: 1; justify-content: center; }
+  @media (max-width: 480px) { .consent { right: 12px; left: 12px; bottom: 12px; width: auto; max-width: none; } }
+</style>

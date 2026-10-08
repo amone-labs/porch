@@ -1,0 +1,7 @@
+video/hero*/.hyperframes/
+video/hero*/.thumbnails/
+video/hero*/snapshots/
+video/hero*/renders/
+video/.compose-*.html
+.wrangler/
+video/.obsidian/

@@ -1,0 +1,71 @@
+---
+// Closing block: the sample day as a timeline (one lane per project, the two named tasks brighter), then the
+// summary line and the download. Built from porch's own surface, the day it looks back on, rather than the
+// side-by-side statement and download cards it used to borrow from a reference site.
+import type { Copy } from "../i18n/types";
+import { MOCK } from "../mock";
+import { DMG_URL } from "../site";
+import AppleLogo from "./AppleLogo.astro";
+interface Props { t: Copy }
+const { t } = Astro.props;
+const pct = (min: number) => `${((min / MOCK.timelineSpan) * 100).toFixed(2)}%`;
+const hours = [0, 120, 240, 360, 480].map((m) => ({ at: pct(m), label: `${String(9 + m / 60).padStart(2, "0")}:00` }));
+---
+<section id="close" class="block" data-section="close">
+  <div class="wrap">
+    <figure class="day" aria-hidden="true">
+      <div class="hours">{hours.map((h) => <span style={`left:${h.at}`}>{h.label}</span>)}</div>
+      {MOCK.timeline.map((lane, i) => (
+        <div class="lane">
+          <span class="proj">{t.mock.projects[i]}</span>
+          <div class="track">
+            {hours.map((h) => <i class="tick" style={`left:${h.at}`} />)}
+            {lane.bars.map((b, j) => (
+              <i class:list={["bar", b.task === 0 ? "t0" : b.task === 1 ? "t1" : "other"]} style={`left:${pct(b.start)};width:${pct(b.len)};--d:${(i * 0.12 + j * 0.06).toFixed(2)}s`} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </figure>
+    <div class="end">
+      <p class="sum">{t.close.summary}</p>
+      <div class="get">
+        <a class="btn btn-primary dl" href={DMG_URL} data-download="close"><AppleLogo />{t.close.cta}</a>
+        <p class="meta"><span>{t.close.title}</span><span class="faint">{t.close.aside}</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .day { margin: 0; display: grid; gap: 10px; }
+  .hours { position: relative; height: 16px; margin-left: 112px; font-family: var(--mono); font-size: 11px; color: rgb(var(--faint)); }
+  .hours span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .hours span:first-child { transform: none; }
+  .hours span:last-child { transform: translateX(-100%); }
+  .lane { display: grid; grid-template-columns: 112px 1fr; align-items: center; }
+  .proj { font-family: var(--mono); font-size: 12px; color: rgb(var(--muted)); }
+  .track { position: relative; height: 28px; border-radius: 6px; background: rgb(var(--surface)); }
+  .tick { position: absolute; top: 0; bottom: 0; width: 1px; background: rgb(var(--border-soft)); }
+  .bar { position: absolute; top: 6px; bottom: 6px; border-radius: 4px; transform-origin: left center;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) calc(0.25s + var(--d)); }
+  /* the two named tasks stand out by brightness; everything else is other work. The button stays the one accent. */
+  .t0 { background: rgb(180 180 190); }
+  .t1 { background: rgb(var(--muted)); }
+  .other { background: rgb(var(--border)); }
+  /* bars draw in from the left when the block scrolls in (Landing.astro's reveal); without JS they are just there */
+  :global(.reveal-on) .day:not(.in) .bar { transform: scaleX(0); }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+
+  .end { margin-top: 56px; display: grid; gap: 32px; }
+  .sum { max-width: 30ch; font-size: clamp(24px, 2.4vw, 32px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; }
+  :global(:lang(ko)) .sum { max-width: 24em; word-break: keep-all; }
+  .get { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; }
+  .dl { height: 48px; padding: 0 20px 0 16px; border-radius: 12px; font-size: 17px; gap: 9px; }
+  .dl :global(svg) { width: 17px; height: 17px; }
+  .meta { display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .hours { margin-left: 0; }
+    .lane { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>

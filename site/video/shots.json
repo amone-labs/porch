@@ -1,0 +1,22 @@
+{
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "w": 1180,
+    "h": 760
+  },
+  "scenes": {
+    "s2": "works",
+    "s4": "app-summary-top",
+    "s5": "app-summary-stuck",
+    "s6": "app-usage",
+    "s8": "app-project-api-applied",
+    "s9": "obsidian-note"
+  },
+  "composed": [
+    "s2"
+  ],
+  "clips": [
+    "s2"
+  ]
+}

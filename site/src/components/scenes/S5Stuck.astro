@@ -1,0 +1,8 @@
+---
+import type { Copy, Locale } from "../../i18n/types";
+interface Props { t: Copy; locale: Locale; variant: "full" | "card" }
+const { t } = Astro.props;
+---
+<p class="lbl">{t.mock.stuckLabel}</p>
+<p class="num">{t.mock.stuck}</p>
+<p class="lbl">{t.scenes.carried[0]}</p>

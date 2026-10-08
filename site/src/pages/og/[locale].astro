@@ -1,0 +1,22 @@
+---
+import { en } from "../../i18n/en";
+import { ko } from "../../i18n/ko";
+import { emph, fill } from "../../i18n/util";
+import Base from "../../layouts/Base.astro";
+export function getStaticPaths() {
+  return [{ params: { locale: "en" } }, { params: { locale: "ko" } }];
+}
+const locale = Astro.params.locale as "en" | "ko";
+const t = locale === "en" ? en : ko;
+---
+<Base locale={locale} title={fill(t.meta.title, locale)} description={fill(t.meta.description, locale)} noindex>
+  <div class="og">
+    <span class="mark">Porch</span>
+    <h1 class="display">{t.hero.headline.map((l) => <span class="line" set:html={emph(fill(l, locale))} />)}</h1>
+  </div>
+</Base>
+<style>
+  .og { width: 1200px; height: 630px; padding: 72px 80px; display: flex; flex-direction: column; justify-content: space-between; background: rgb(var(--canvas)); }
+  .mark { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .og .display { font-size: 64px; max-width: 980px; }
+</style>

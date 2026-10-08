@@ -1,0 +1,61 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+import { emph, fill, labelClass } from "../i18n/util";
+import Scene from "./scenes/Scene.astro";
+import { isShotScene } from "../shots";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+---
+<div class="story" id="how">
+  {t.story.map((b) => (
+    <section class="story-block" id={b.id} data-scene={b.scene} data-section={b.id}>
+      <div class="story-text">
+        <p class={labelClass(locale)}>{b.eyebrow}</p>
+        <h2 class="h2">{b.headline}</h2>
+        <div class="lead">{b.body.map((p) => <p set:html={emph(fill(p, locale))} />)}</div>
+      </div>
+      <div class="scene-slot">
+        <Scene id={b.scene} variant="full" t={t} locale={locale} />
+        <Scene id={b.scene} variant="card" t={t} locale={locale} />
+        {b.caption && <p class="caption">{b.caption}</p>}
+        {t.shots.uiNote && isShotScene(b.scene) && <p class="caption ui-note">{t.shots.uiNote}</p>}
+      </div>
+    </section>
+  ))}
+</div>
+<script>
+  // Replay a scene's focus animation each time it scrolls into view; load-time animations end before anyone
+  // gets there, and finished CSS animations no longer show up in getAnimations(), so restart them by class.
+  const replay = (el: Element) => {
+    for (const n of el.querySelectorAll<HTMLElement>('[class*="anim-"]')) {
+      n.style.animation = "none";
+      void n.offsetWidth;
+      n.style.animation = "";
+    }
+  };
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) if (e.isIntersecting) replay(e.target);
+    },
+    { threshold: 0.3 },
+  );
+  for (const s of document.querySelectorAll(".scene-slot .scene")) io.observe(s);
+</script>
+<style>
+  .story { padding: 0 clamp(16px, 6vw, 115px); scroll-margin-top: 80px; }
+  .story-block { max-width: 1256px; margin: 0 auto; padding: 96px 0; display: flex; flex-direction: column; gap: 32px; scroll-margin-top: 80px; }
+  .story-text { display: flex; flex-direction: column; gap: 20px; }
+  .scene-slot { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .caption { font-size: 13px; color: rgb(var(--muted)); }
+  .scene-slot :global(.scene-card) { display: none; }
+  @media (max-width: 768px) {
+    .scene-slot :global(.scene-full) { display: none; }
+    .scene-slot :global(.scene-card) { display: flex; }
+  }
+  /* Desktop: text and app screen side by side, sides alternating block to block. */
+  @media (min-width: 1100px) {
+    .story-block { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); column-gap: clamp(48px, 5vw, 80px); align-items: center; padding: 120px 0; }
+    .story-block:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); }
+    .story-block:nth-child(even) .story-text { order: 2; }
+  }
+</style>

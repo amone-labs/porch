@@ -1,0 +1,26 @@
+---
+import Scene from "../../components/scenes/Scene.astro";
+import { en } from "../../i18n/en";
+import { ko } from "../../i18n/ko";
+import type { SceneId } from "../../i18n/types";
+import Base from "../../layouts/Base.astro";
+import { isShotScene } from "../../shots";
+export function getStaticPaths() {
+  return [{ params: { locale: "en" } }, { params: { locale: "ko" } }];
+}
+const locale = Astro.params.locale as "en" | "ko";
+const t = locale === "en" ? en : ko;
+const ids: SceneId[] = ["s2", "s4", "s5", "s6", "s8", "s9"];
+---
+<Base locale={locale} title="Porch scenes" description="Scene preview" noindex>
+  <main class="wrap" style="display:grid;gap:48px;padding:48px 16px">
+    {ids.map((id) => (
+      <section style="display:grid;gap:16px">
+        <p class="eyebrow">{id}</p>
+        <div style="max-width:810px"><Scene id={id} variant="full" t={t} locale={locale} /></div>
+        {isShotScene(id) && t.shots.uiNote && <p class="caption">{t.shots.uiNote}</p>}
+        <div style="max-width:375px"><Scene id={id} variant="card" t={t} locale={locale} /></div>
+      </section>
+    ))}
+  </main>
+</Base>

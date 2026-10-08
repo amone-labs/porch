@@ -1,0 +1,50 @@
+---
+import type { Copy, Locale } from "../../i18n/types";
+import { boxes, clipSrcs, isAppWindow, isClip, shotSize, shotSrc, type ShotScene } from "../../shots";
+import VideoToggle from "../VideoToggle.astro";
+interface Props { scene: ShotScene; locale: Locale; t: Copy }
+const { scene, locale, t } = Astro.props;
+const list = boxes(locale, scene);
+const cls = (i: number) => (list.length === 1 ? "anim-focus" : i === 0 ? "anim-focus-first" : "anim-focus-then");
+const app = isAppWindow(scene);
+const clip = isClip(scene);
+const [w, h] = shotSize(scene);
+---
+<div class:list={["shot", app && "window", clip && "clip"]}>
+  <div class="frame">
+    {app && <div class="titlebar"><i /><i /><i /></div>}
+    {clip ? (
+      <>
+        <video muted playsinline loop preload="none" poster={shotSrc(locale, scene)} width={w} height={h} aria-hidden="true">
+          {clipSrcs(locale, scene).map((s) => <source src={s.src} type={s.type} />)}
+        </video>
+        <VideoToggle play={t.hero.video.play} pause={t.hero.video.pause} />
+      </>
+    ) : (
+      <img src={shotSrc(locale, scene)} alt="" width={w} height={h} loading="lazy" decoding="async" />
+    )}
+    {list.map((b, i) => <span class:list={["focus", cls(i)]} style={`left:${b.left}%;top:${b.top}%;width:${b.width}%;height:${b.height}%`} />)}
+  </div>
+</div>
+<script>
+  import { autoplay } from "../../video-autoplay";
+  for (const el of document.querySelectorAll<HTMLElement>(".shot.clip .frame")) autoplay(el);
+</script>
+<style>
+  /* The whole capture is shown, never cropped: the app window with its sidebar, like the hero video. */
+  .shot { width: 100%; border-radius: 12px; overflow: hidden; background: #0a0a0c; }
+  .window { border: 1px solid rgb(255 255 255 / 0.1); box-shadow: var(--sh-pop); }
+  /* macOS window controls over the app's own top edge, as in the app's hidden title bar: no strip, no divider.
+     Colours are the system's, a little muted so they don't outshine the app. */
+  .titlebar { position: absolute; left: 12px; top: 11px; z-index: 1; display: flex; gap: 7px; }
+  .titlebar i { flex: 0 0 auto; width: 11px; height: 11px; border-radius: 50%; }
+  .titlebar i:nth-child(1) { background: #e0605a; }
+  .titlebar i:nth-child(2) { background: #dcae3f; }
+  .titlebar i:nth-child(3) { background: #4fb553; }
+  .frame { position: relative; }
+  img, video { display: block; width: 100%; height: auto; }
+  /* The still is always the dark app, so the box uses fixed light-on-dark values, not the page theme's tokens. */
+  .focus { position: absolute; border-radius: 8px; border: 1.5px solid rgb(237 237 240 / 0.9); box-shadow: 0 0 0 4px rgb(237 237 240 / 0.08), 0 0 0 2000px rgb(0 0 0 / 0.4); opacity: 0; pointer-events: none; }
+  /* base.css stops every animation under reduced motion; show all boxes at once instead of none */
+  @media (prefers-reduced-motion: reduce) { .focus { opacity: 1; } }
+</style>

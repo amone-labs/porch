@@ -1,0 +1,27 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+import { DMG_URL } from "../site";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+const other = locale === "en" ? { href: "/ko/", lang: "ko" } : { href: "/", lang: "en" };
+---
+<nav class="nav" aria-label="Main">
+  <div class="inner">
+    <a class="mark" href="#top">Porch</a>
+    <span class="links">
+      <a class="link hide-sm" href="#how">{t.nav.how}</a>
+      <a class="link hide-sm" href="#privacy">{t.nav.privacy}</a>
+      <a class="link hide-sm" href="#faq">{t.nav.faq}</a>
+      <a class="link" href={other.href} hreflang={other.lang} lang={other.lang} data-lang-switch>{t.nav.otherLang}</a>
+      <a class="pill" href={DMG_URL} data-download="nav">{t.nav.download}</a>
+    </span>
+  </div>
+</nav>
+<style>
+  .nav { position: sticky; top: 0; z-index: 999; height: 68px;
+    background: linear-gradient(0deg, rgb(var(--canvas) / 0) 0%, rgb(var(--canvas) / 0.7) 20%, rgb(var(--canvas)) 50%); }
+  .inner { height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px, 2vw, 24px); }
+  .mark { font-weight: 700; font-size: 19px; text-decoration: none; letter-spacing: -0.02em; }
+  .links { display: flex; align-items: center; gap: 20px; font-size: 14px; }
+  @media (max-width: 768px) { .hide-sm { display: none; } .nav { height: 60px; } }
+</style>

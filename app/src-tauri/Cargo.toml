@@ -1,0 +1,30 @@
+[package]
+name = "porch-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "porch_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+porch-core = { path = "../../crates/core" }
+serde.workspace = true
+# Not named in our code, but tauri::generate_context!() expands to ::serde_json.
+serde_json.workspace = true
+tauri = { version = "2.11.3", features = ["tray-icon", "image-png", "macos-private-api"] }
+tauri-plugin-autostart = "2"
+tauri-plugin-updater = "2"
+tauri-plugin-process = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-dialog = "2"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+mac-notification-sys = "0.6"
+objc2 = "0.5"
+objc2-foundation = { version = "0.2", features = ["NSGeometry", "NSString", "NSURL"] }
+objc2-app-kit = { version = "0.2", features = ["NSApplication", "NSResponder", "NSWindow", "NSView", "NSScreen", "NSEvent"] }

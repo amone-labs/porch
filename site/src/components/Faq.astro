@@ -1,0 +1,25 @@
+---
+import type { Copy } from "../i18n/types";
+interface Props { t: Copy }
+const { t } = Astro.props;
+---
+<section id="faq" class="block" data-section="faq">
+  <div class="wrap stack">
+    <h2 class="h2">{t.faq.headline}</h2>
+    <div class="list">
+      {t.faq.items.map((item) => (
+        <details><summary><span>{item.q}</span><svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary><p class="muted">{item.a}</p></details>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .list { margin-top: 16px; border-top: 1px solid rgb(var(--border-soft)); }
+  details { border-bottom: 1px solid rgb(var(--border-soft)); }
+  summary { list-style: none; cursor: pointer; padding: 16px 0; font-weight: 500; transition: color var(--t-fast); display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 64px; }
+  .chev { width: 20px; height: 20px; flex-shrink: 0; color: rgb(var(--faint)); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+  details[open] .chev { transform: rotate(180deg); }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: rgb(var(--text)); }
+  details p { padding: 0 0 16px; max-width: 720px; }
+</style>

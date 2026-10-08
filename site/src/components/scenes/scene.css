@@ -1,0 +1,29 @@
+.scene { margin: 0; position: relative; }
+.scene-full { aspect-ratio: 16 / 10; width: 100%; border-radius: 10px; background: var(--stage-bg, rgb(var(--surface))); overflow: hidden; display: grid; place-items: center; }
+/* stills take their own height so nothing is cut off */
+.scene-full.scene-shot { aspect-ratio: auto; background: none; overflow: visible; display: block; border-radius: 0; }
+.scene-card { width: 100%; border-radius: var(--r-card); background: rgb(var(--elevated)); border: 1px solid rgb(var(--border-soft)); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.win { width: 78%; border-radius: 36px; background: rgb(var(--elevated)); border: 1px solid rgb(var(--border)); box-shadow: var(--sh-pop); padding: 22px 26px; overflow: hidden; }
+.win .mock { border: 0; box-shadow: none; background: none; }
+.term { border-radius: 18px; background: rgb(var(--canvas)); border: 1px solid rgb(var(--border)); padding: 12px 14px; font-family: var(--mono); font-size: 12px; color: rgb(var(--muted)); }
+.lbl { font-size: 12px; color: rgb(var(--muted)); }
+.num { font-size: 14px; color: rgb(var(--text)); font-variant-numeric: tabular-nums; }
+.row { display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot.bright { background: rgb(var(--accent)); } .dot.grey { background: rgb(var(--muted)); } .dot.ring { border: 1px solid rgb(var(--faint)); }
+.track { display: block; height: 8px; border-radius: 4px; background: rgb(var(--border-soft)); }
+.limit-fill { display: block; height: 100%; border-radius: 4px; background: rgb(var(--text)); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+@keyframes fill { from { width: 0; } }
+@keyframes appear { from { opacity: 0; } }
+.anim-rise { animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.anim-fill { animation: fill 1.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.anim-appear { animation: appear 0.4s ease backwards; }
+.d1 { animation-delay: 0.3s; } .d2 { animation-delay: 0.9s; } .d3 { animation-delay: 1.5s; } .d4 { animation-delay: 2.1s; }
+
+@keyframes focus-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes focus-first { 0% { opacity: 0; } 15%, 75% { opacity: 1; } 100% { opacity: 0; } }
+.anim-focus { animation: focus-in 0.4s ease 0.8s forwards; }
+.anim-focus-first { animation: focus-first 2.6s ease 0.6s forwards; }
+.anim-focus-then { animation: focus-in 0.4s ease 3.2s forwards; }

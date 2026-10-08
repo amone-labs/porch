@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observation flow</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --canvas: #0a0a0c;
+      --text:   #e8e8ee;
+      --muted:  #82828f;
+      --faint:  #54545d;
+      --sans: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+      --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    }
+    body { font-family: var(--sans); background: var(--canvas); color: var(--text); min-height: 100vh;
+           display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .frame { max-width: 1100px; width: 100%; }
+    .eyebrow { font-family: var(--mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em;
+               text-transform: uppercase; color: var(--faint); margin-bottom: 0.5rem; }
+    h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.5rem; }
+    .scroll { overflow-x: auto; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Architecture</p>
+    <h1>Observation flow: only what the hooks report</h1>
+    <div class="scroll">
+<svg viewBox="0 0 960 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="observe-title observe-desc">
+<title id="observe-title">Observation flow: only what the hooks report</title>
+<desc id="observe-desc">The hook binary that Claude Code and Codex call writes events to append-only files; the app tails those files to compute state, fills in sessions from before the install with the session registry and the Codex threads table, and shows them in the menu bar popover with git change counts per work folder.</desc>
+<defs>
+<marker id="o-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#82828f"/></marker>
+<marker id="o-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ededf0"/></marker>
+</defs>
+<rect width="100%" height="100%" fill="#0a0a0c"/>
+<rect x="16" y="40" width="160" height="184" rx="8" fill="rgba(245,245,245,0.02)" stroke="rgba(245,245,245,0.10)" stroke-width="0.8"/><rect x="64.0" y="44" width="64" height="16" rx="2" fill="#0a0a0c"/><text x="96.0" y="56" fill="#82828f" font-size="12" font-weight="500" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Agents</text>
+<rect x="544" y="56" width="400" height="248" rx="8" fill="rgba(245,245,245,0.02)" stroke="rgba(245,245,245,0.10)" stroke-width="0.8"/><rect x="728.0" y="60" width="32" height="16" rx="2" fill="#0a0a0c"/><text x="744.0" y="72" fill="#82828f" font-size="12" font-weight="500" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">App</text>
+<path d="M 160,96 H 180 Q 188,96 188,104 V 112 Q 188,120 196,120 H 216" fill="none" stroke="#82828f" stroke-width="1.2" marker-end="url(#o-arrow)"/>
+<path d="M 160,176 H 180 Q 188,176 188,168 V 160 Q 188,152 196,152 H 216" fill="none" stroke="#82828f" stroke-width="1.2" marker-end="url(#o-arrow)"/>
+<line x1="344" y1="136" x2="384" y2="136" stroke="#82828f" stroke-width="1.2" marker-end="url(#o-arrow)"/>
+<rect x="344.0" y="116" width="40" height="12" rx="2" fill="#0a0a0c"/><text x="364" y="125" fill="#82828f" font-size="8" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle" letter-spacing="0.06em">APPEND</text>
+<line x1="512" y1="136" x2="560" y2="136" stroke="#82828f" stroke-width="1.2" marker-end="url(#o-arrow)"/>
+<rect x="520.0" y="116" width="32" height="12" rx="2" fill="#0a0a0c"/><text x="536" y="125" fill="#82828f" font-size="8" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle" letter-spacing="0.06em">TAIL</text>
+<line x1="640" y1="232" x2="640" y2="184" stroke="#82828f" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#o-arrow)"/>
+<line x1="720" y1="136" x2="768" y2="136" stroke="#ededf0" stroke-width="1.5" marker-end="url(#o-arrow-accent)"/>
+<line x1="848" y1="232" x2="848" y2="184" stroke="#82828f" stroke-width="1.2" marker-end="url(#o-arrow)"/>
+<rect x="32" y="72" width="128" height="48" rx="6" fill="#0a0a0c"/><rect x="32" y="72" width="128" height="48" rx="6" fill="#101013" stroke="#54545d" stroke-width="1"/><text x="96.0" y="95.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Claude Code</text><text x="96.0" y="112.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">claude</text>
+<rect x="32" y="152" width="128" height="48" rx="6" fill="#0a0a0c"/><rect x="32" y="152" width="128" height="48" rx="6" fill="#101013" stroke="#54545d" stroke-width="1"/><text x="96.0" y="175.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Codex</text><text x="96.0" y="192.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">codex</text>
+<rect x="216" y="104" width="128" height="64" rx="6" fill="#0a0a0c"/><rect x="216" y="104" width="128" height="64" rx="6" fill="#16161b" stroke="#82828f" stroke-width="1"/><text x="280.0" y="135.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Hook binary</text><text x="280.0" y="152.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">porch-hook</text>
+<rect x="384" y="104" width="128" height="64" rx="6" fill="#0a0a0c"/><rect x="384" y="104" width="128" height="64" rx="6" fill="rgba(245,245,245,0.05)" stroke="#82828f" stroke-width="1"/><text x="448.0" y="135.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Event files</text><text x="448.0" y="152.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">events/*.jsonl</text>
+<rect x="560" y="88" width="160" height="96" rx="6" fill="#0a0a0c"/><rect x="560" y="88" width="160" height="96" rx="6" fill="rgba(255,255,255,0.055)" stroke="#ededf0" stroke-width="1.2"/><rect x="568" y="94" width="32" height="12" rx="2" fill="none" stroke="rgba(237,237,240,0.40)" stroke-width="0.8"/><text x="584" y="103" fill="#ededf0" font-size="7" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle" letter-spacing="0.08em">PURE</text><text x="640.0" y="135.0" fill="#ffffff" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">State</text><text x="640.0" y="152.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">state · store</text>
+<rect x="560" y="232" width="160" height="56" rx="6" fill="#0a0a0c"/><rect x="560" y="232" width="160" height="56" rx="6" fill="#16161b" stroke="#82828f" stroke-width="1"/><text x="640.0" y="259.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Pre-install sessions</text><text x="640.0" y="276.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">sessions · threads</text>
+<rect x="768" y="88" width="160" height="96" rx="6" fill="#0a0a0c"/><rect x="768" y="88" width="160" height="96" rx="6" fill="#16161b" stroke="#82828f" stroke-width="1"/><text x="848.0" y="135.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Menu bar popover</text><text x="848.0" y="152.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">Tauri · React</text>
+<rect x="768" y="232" width="160" height="56" rx="6" fill="#0a0a0c"/><rect x="768" y="232" width="160" height="56" rx="6" fill="#16161b" stroke="#82828f" stroke-width="1"/><text x="848.0" y="259.0" fill="#e8e8ee" font-size="13" font-weight="600" font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" text-anchor="middle">Changes per folder</text><text x="848.0" y="276.0" fill="#82828f" font-size="9" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">git status</text>
+<line x1="16" y1="328" x2="944" y2="328" stroke="rgba(245,245,245,0.10)" stroke-width="0.8"/>
+<text x="16" y="356" fill="#54545d" font-size="8" font-family="ui-monospace, 'SF Mono', Menlo, monospace" letter-spacing="0.14em">LEGEND</text>
+<g font-family="-apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" font-size="12" fill="#82828f">
+<rect x="96" y="344" width="24" height="16" rx="3" fill="#101013" stroke="#54545d" stroke-width="1"/><text x="128" y="356">Agents</text>
+<rect x="216" y="344" width="24" height="16" rx="3" fill="#16161b" stroke="#82828f" stroke-width="1"/><text x="248" y="356">Module</text>
+<rect x="312" y="344" width="24" height="16" rx="3" fill="rgba(245,245,245,0.05)" stroke="#82828f" stroke-width="1"/><text x="344" y="356">File</text>
+<rect x="408" y="344" width="24" height="16" rx="3" fill="rgba(255,255,255,0.055)" stroke="#ededf0" stroke-width="1.2"/><text x="440" y="356">Core: pure function, events to state</text>
+<line x1="688" y1="352" x2="716" y2="352" stroke="#82828f" stroke-width="1" stroke-dasharray="4,3"/><text x="724" y="356">Fill-in (before hooks)</text>
+</g>
+</svg>
+    </div>
+  </div>
+</body>
+</html>

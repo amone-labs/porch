@@ -1,0 +1,86 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: rgb(var(--canvas));
+  color: rgb(var(--text));
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 450;
+  letter-spacing: -0.006em;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgb(var(--text) / 0.15); }
+:focus-visible { outline: 2px solid rgb(var(--ring)); outline-offset: 2px; border-radius: 6px; }
+/* Korean breaks between words; a long URL or path may still break anywhere. */
+:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+a { color: inherit; }
+p { margin: 0; }
+
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+.block { padding: 96px 0; border-top: 1px solid rgb(var(--border-soft)); }
+@media (min-width: 720px) { .block { padding: 160px 0; } }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+/* A section's heading group (label + h2) sits close together; its content starts well below it. */
+/* .wrap raises specificity above a component's own scoped margin, which otherwise wins or loses by bundle order. */
+.block .wrap .h2 + * { margin-top: 40px; }
+
+.eyebrow { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(var(--faint)); }
+.eyebrow-ko { font-family: var(--sans); font-size: 11px; color: rgb(var(--faint)); }
+.display { margin: 0; font-size: clamp(44px, 4vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.0; text-wrap: balance; }
+@media (min-width: 1400px) { .display { font-size: 56px; } }
+.display .line { display: block; }
+.h2 { margin: 0; font-size: clamp(32px, 3.4vw, 48px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.0; text-wrap: balance; }
+.h3 { margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.lead { color: rgb(var(--muted)); font-size: 20px; font-weight: 300; line-height: 1.3; }
+.lead p + p { margin-top: 12px; }
+
+.serif { font-family: "IBM Plex Serif", ui-serif, Georgia, serif; font-style: italic; font-weight: 200; }
+.chip { background: rgb(var(--raised)); color: rgb(var(--text)); border-radius: 10px; padding: 3px 10px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 10px; font-size: 13px; font-weight: 600; text-decoration: none; background: rgb(var(--raised)); color: rgb(var(--text)); transition: background-color var(--t-fast); }
+.pill:hover { background: rgb(var(--border)); }
+
+.fold { position: fixed; left: 0; right: 0; bottom: 0; height: 126px; pointer-events: none; z-index: 30;
+  background: linear-gradient(rgb(var(--canvas) / 0) 0%, rgb(var(--canvas) / 0.72) 58%, rgb(var(--canvas)) 100%); }
+.muted { color: rgb(var(--muted)); }
+.faint { color: rgb(var(--faint)); }
+.small { font-size: 13px; }
+.mono { font-family: var(--mono); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
+  border-radius: var(--r-btn); font-size: 14px; font-weight: 560; text-decoration: none; cursor: pointer;
+  transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+}
+.btn-primary { background: rgb(var(--accent)); color: rgb(var(--on-accent)); box-shadow: var(--sh-btn); border: 0; }
+.btn-primary:hover { background: rgb(var(--accent-hover)); }
+.btn-ghost { background: transparent; color: rgb(var(--muted)); border: 1px solid rgb(var(--border)); }
+.btn-ghost:hover { color: rgb(var(--text)); border-color: rgb(var(--faint)); }
+.btn-xl { height: 64px; padding: 16px 24px 16px 20px; border-radius: 26px; font-size: 22px; font-weight: 500; gap: 10px; }
+.btn-xl svg { width: 22px; height: 22px; }
+.link { color: rgb(var(--muted)); text-decoration: none; transition: color var(--t-fast); }
+.link:hover { color: rgb(var(--text)); }
+
+.card { background: rgb(var(--elevated)); border: 1px solid rgb(var(--border-soft)); border-radius: var(--r-card); padding: 20px; }
+.table-wrap { overflow-x: auto; border: 1px solid rgb(var(--border-soft)); border-radius: var(--r-card); }
+.table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table th { text-align: left; font-weight: 500; color: rgb(var(--faint)); padding: 10px 14px; border-bottom: 1px solid rgb(var(--border-soft)); white-space: nowrap; }
+.table td { padding: 12px 14px; border-bottom: 1px solid rgb(var(--border-soft)); vertical-align: top; color: rgb(var(--muted)); min-width: 160px; }
+.table tr:last-child td { border-bottom: 0; }
+.table td:first-child { color: rgb(var(--text)); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Scroll reveal (Landing.astro marks the targets). Only with JS and only when motion is allowed:
+   without either, nothing is ever hidden. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] { opacity: 0; transform: translateY(16px); }
+  html.js.reveal-on [data-reveal] { transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--reveal-delay, 0s); }
+  html.js [data-reveal].in { opacity: 1; transform: none; }
+}

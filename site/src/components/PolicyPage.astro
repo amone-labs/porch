@@ -1,0 +1,31 @@
+---
+import type { Locale } from "../i18n/types";
+import { policy } from "../i18n/policy";
+import Base from "../layouts/Base.astro";
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const p = policy[locale];
+const home = locale === "ko" ? "/ko/" : "/";
+---
+<Base locale={locale} title={`${p.title} · Porch`} description={p.intro} noindex>
+  <main class="wrap policy stack">
+    <a class="mark" href={home}>Porch</a>
+    <h1 class="h2">{p.title}</h1>
+    <p class="muted">{p.intro}</p>
+    {p.sections.map((s) => (
+      <section class="stack">
+        <h2 class="h3">{s.heading}</h2>
+        <ul>{s.items.map((i) => <li class="muted">{i}</li>)}</ul>
+      </section>
+    ))}
+    <p class="small faint">{p.effective}</p>
+    <a class="link" href={home}>{p.home}</a>
+  </main>
+</Base>
+<style>
+  .policy { max-width: 760px; padding-top: 48px; padding-bottom: 96px; gap: 24px; }
+  .mark { font-weight: 700; font-size: 19px; text-decoration: none; letter-spacing: -0.02em; }
+  section { gap: 8px; }
+  ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  li { overflow-wrap: anywhere; }
+</style>

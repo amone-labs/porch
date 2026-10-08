@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # Only in the public repository: the private archive would spend paid macOS minutes.
+    if: github.repository == 'amone-labs/porch'
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - uses: Swatinem/rust-cache@v2
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.11.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            app/pnpm-lock.yaml
+            site/pnpm-lock.yaml
+
+      # The app bundles porch-hook and porch, which are not in git (AGENTS.md).
+      - name: App dependencies and bundled binaries
+        working-directory: app
+        run: |
+          pnpm install --frozen-lockfile
+          sh scripts/stage-hook.sh
+
+      - name: App type check and build
+        working-directory: app
+        run: pnpm build
+
+      - name: Rust tests
+        run: cargo test
+
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Site dependencies
+        working-directory: site
+        run: pnpm install --frozen-lockfile
+
+      - name: Site tests
+        working-directory: site
+        run: pnpm test
+
+      - name: Site type check
+        working-directory: site
+        run: pnpm exec astro check

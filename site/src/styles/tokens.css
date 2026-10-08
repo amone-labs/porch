@@ -1,0 +1,30 @@
+:root {
+  --canvas: 10 10 12;
+  --surface: 16 16 19;
+  --elevated: 22 22 27;
+  --raised: 28 28 34;
+  --border: 36 36 43;
+  --border-soft: 26 26 32;
+  --text: 232 232 238;
+  --muted: 130 130 143;
+  --faint: 84 84 93;
+  --accent: 237 237 240;
+  --accent-hover: 255 255 255;
+  --on-accent: 11 11 13;
+  --ring: 122 122 134;
+
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Apple SD Gothic Neo", sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --r-chip: 4px;
+  --r-btn: 7px;
+  --r-card: 10px;
+  --r-modal: 13px;
+
+  --sh-btn: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sh-pop: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --t-fast: 0.12s ease;
+
+  /* Dark only, like the app: the hero video and stills are dark screens. */
+  color-scheme: dark;
+}

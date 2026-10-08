@@ -1,0 +1,22 @@
+---
+import type { Copy, Locale, SceneId } from "../../i18n/types";
+import { isClip, isShotScene } from "../../shots";
+import "./scene.css";
+import S2Terminals from "./S2Terminals.astro";
+import S4Time from "./S4Time.astro";
+import S5Stuck from "./S5Stuck.astro";
+import S6Usage from "./S6Usage.astro";
+import S8Suggest from "./S8Suggest.astro";
+import S9Delivered from "./S9Delivered.astro";
+import ShotScene from "./ShotScene.astro";
+interface Props { id: SceneId; variant: "full" | "card"; t: Copy; locale: Locale }
+const { id, variant, t, locale } = Astro.props;
+const C = { s2: S2Terminals, s4: S4Time, s5: S5Stuck, s6: S6Usage, s8: S8Suggest, s9: S9Delivered }[id];
+// Narrow once into a const: TypeScript loses `isShotScene`'s narrowing inside JSX expressions.
+const shot = variant === "full" && isShotScene(id) ? id : null;
+// Scenes illustrate the text beside them, so they stay out of the accessibility tree. A clip keeps its pause button
+// reachable (the video itself is hidden): moving content needs a way to stop it.
+---
+<figure class:list={["scene", `scene-${variant}`, shot && "scene-shot"]} data-scene={id} aria-hidden={shot && isClip(shot) ? undefined : "true"}>
+  {shot ? <ShotScene scene={shot} locale={locale} t={t} /> : <C t={t} locale={locale} variant={variant} />}
+</figure>

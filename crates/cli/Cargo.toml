@@ -1,0 +1,13 @@
+[package]
+name = "porch-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "porch"
+path = "src/main.rs"
+
+[dependencies]
+porch-core = { path = "../core" }
+serde_json.workspace = true

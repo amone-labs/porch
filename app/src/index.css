@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Achromatic tokens from docs/design/ui.md (dark first; light is the black/white swap). */
+:root {
+  --canvas: 255 255 255;
+  --surface: 250 250 250;
+  --elevated: 244 244 245;
+  --raised: 237 237 238;
+  --border: 228 228 231;
+  --border-soft: 237 237 238;
+  --text: 24 24 27;
+  --muted: 107 107 118;
+  --faint: 161 161 170;
+  --accent: 24 24 27;
+  --on-accent: 255 255 255;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: 10 10 12;
+    --surface: 16 16 19;
+    --elevated: 22 22 27;
+    --raised: 28 28 34;
+    --border: 36 36 43;
+    --border-soft: 26 26 32;
+    --text: 232 232 238;
+    --muted: 130 130 143;
+    --faint: 84 84 93;
+    --accent: 237 237 240;
+    --on-accent: 11 11 13;
+  }
+}
+
+html, body, #root { height: 100%; }
+body {
+  @apply bg-canvas text-fg font-sans antialiased tracking-tightish;
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+/* The popover window is transparent; its rounded glass panel is the only surface. */
+html.popover, html.popover body { background: transparent; }
+
+::selection { background: rgb(var(--text) / 0.15); }
+:focus-visible { outline: 1.5px solid rgb(var(--muted)); outline-offset: 2px; border-radius: 6px; }
+
+/* Scrollbars stay out of sight until scrolling. */
+* { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+*:hover { scrollbar-color: rgb(var(--border)) transparent; }
+
+/* Mono uppercase label (Latin). Hangul labels use .label-ko: no caps, no tracking. */
+.label-mono { @apply font-mono text-[10px] uppercase tracking-label text-faint; }
+.label-ko { @apply text-[11.5px] text-faint; }
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+
+/* A new notice rises into the stack. */
+@keyframes notice-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+.notice-in { animation: notice-in 200ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Exported PDFs: the report on white paper, without the app around it. The
+   light tokens return whatever the screen theme is, and backgrounds print so
+   the hours strip and calendar shading survive. */
+@media print {
+  :root {
+    --canvas: 255 255 255;
+    --surface: 255 255 255;
+    --elevated: 248 248 249;
+    --raised: 240 240 241;
+    --border: 222 222 226;
+    --border-soft: 234 234 236;
+    --text: 24 24 27;
+    --muted: 96 96 106;
+    --faint: 140 140 150;
+    --accent: 24 24 27;
+    --on-accent: 255 255 255;
+    color-scheme: light;
+  }
+  html, body, #root { height: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  article, li { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+}

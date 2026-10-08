@@ -1,0 +1,9 @@
+---
+import Landing from "../components/Landing.astro";
+import { en } from "../i18n/en";
+import { fill } from "../i18n/util";
+import Base from "../layouts/Base.astro";
+---
+<Base locale="en" title={fill(en.meta.title, "en")} description={fill(en.meta.description, "en")}>
+  <Landing t={en} locale="en" />
+</Base>

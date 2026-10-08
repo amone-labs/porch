@@ -1,0 +1,17 @@
+---
+import type { Copy, Locale } from "../../i18n/types";
+interface Props { t: Copy; locale: Locale; variant: "full" | "card" }
+const { t } = Astro.props;
+const d = t.scenes.delivered;
+---
+<p class="lbl path">{d.vault} / {d.files[d.selected]}</p>
+<p class="num">{d.title}</p>
+<p class="lbl">{d.headline}</p>
+<p class="lbl">{d.section}</p>
+{d.rows.map((r) => (
+  <div class="row"><span class="num">{r.task}</span><span class="lbl time">{r.time}</span></div>
+))}
+<style>
+  .path { overflow-wrap: anywhere; }
+  .time { margin-left: auto; }
+</style>

@@ -1,0 +1,35 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+import { emph, fill, labelClass } from "../i18n/util";
+import { DMG_URL } from "../site";
+import AppleLogo from "./AppleLogo.astro";
+import HeroVideo from "./HeroVideo.astro";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+---
+<section class="hero" id="top">
+  <div class="hero-text stack">
+    <p class={labelClass(locale)}>{fill(t.hero.eyebrow, locale)}</p>
+    <h1 class="display">{t.hero.headline.map((l) => <span class="line" set:html={emph(fill(l, locale))} />)}</h1>
+    <div class="lead">{t.hero.subhead.map((p) => <p>{fill(p, locale)}</p>)}</div>
+    <div class="cta">
+      <a class="btn btn-primary btn-xl" href={DMG_URL} data-download="hero">
+        <AppleLogo />
+        {t.hero.cta}
+      </a>
+      <a class="link" href="#agent-install">{t.hero.agentLink}</a>
+    </div>
+    <p class="platform">{t.hero.aside} · {t.hero.condition}</p>
+  </div>
+  <HeroVideo t={t} locale={locale} />
+</section>
+<style>
+  .hero { padding: 96px clamp(16px, 6vw, 115px) 200px; max-width: 1256px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 120px; }
+  .hero-text { align-items: center; text-align: center; gap: 24px; }
+  .hero-text .cta { margin-top: 16px; }
+  .hero-text .lead { max-width: 640px; }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px; }
+  .platform { font-size: 13px; color: rgb(var(--muted)); margin-top: -4px; }
+  .hero :global(.hero-video) { width: 100%; }
+  @media (max-width: 768px) { .hero { padding-top: 48px; gap: 64px; } }
+</style>

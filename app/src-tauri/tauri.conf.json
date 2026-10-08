@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Porch",
+  "version": "../package.json",
+  "identifier": "com.porch.desktop",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1430",
+    "beforeDevCommand": "sh scripts/stage-hook.sh && pnpm dev",
+    "beforeBuildCommand": "sh scripts/stage-hook.sh && pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Porch",
+        "width": 1080,
+        "height": 760,
+        "minWidth": 720,
+        "minHeight": 480,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
+      }
+    ],
+    "security": {
+      "csp": null
+    },
+    "macOSPrivateApi": true
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "app",
+      "dmg"
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "externalBin": [
+      "binaries/porch-hook",
+      "binaries/porch"
+    ],
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDgzRUMzNkE2RjVFNjBENEYKUldSUERlYjFwamJzZzc5Y1FvSEVQdkpneno1eTFhdmRsdVFRcG9ZUGxHU0R5MmdQOVYwaHFvc1gK",
+      "endpoints": [
+        "https://porch-updates-6f3a11bb.s3.ap-northeast-2.amazonaws.com/latest.json"
+      ]
+    }
+  }
+}

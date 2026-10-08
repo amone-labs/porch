@@ -1,0 +1,60 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+import AgentTable from "./AgentTable.astro";
+import Close from "./Close.astro";
+import Compare from "./Compare.astro";
+import Consent from "./Consent.astro";
+import Faq from "./Faq.astro";
+import Fold from "./Fold.astro";
+import Footer from "./Footer.astro";
+import Hero from "./Hero.astro";
+import Nav from "./Nav.astro";
+import Privacy from "./Privacy.astro";
+import Setup from "./Setup.astro";
+import Story from "./Story.astro";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+---
+<Nav t={t} locale={locale} />
+<main>
+  <Hero t={t} locale={locale} />
+  <Story t={t} locale={locale} />
+  <Compare t={t} locale={locale} />
+  <Privacy t={t} locale={locale} />
+  <Setup t={t} locale={locale} />
+  <Faq t={t} />
+  <AgentTable t={t} locale={locale} />
+  <Close t={t} />
+</main>
+<Footer t={t} locale={locale} />
+<Fold />
+<Consent t={t} locale={locale} />
+<script>
+  // Sections rise into place as they scroll in: each story block's text then its screen, and in the lower
+  // sections each child of the section's wrap, staggered. The hero is already on screen and is left alone.
+  const groups = [
+    ...[...document.querySelectorAll(".story-block")].map((b) => [...b.querySelectorAll(":scope > .story-text, :scope > .scene-slot")]),
+    ...[...document.querySelectorAll("main > section.block > .wrap")].map((w) => [...w.children]),
+  ];
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
+  );
+  for (const els of groups) {
+    els.forEach((el, i) => {
+      (el as HTMLElement).style.setProperty("--reveal-delay", `${Math.min(i, 4) * 0.08}s`);
+      el.setAttribute("data-reveal", "");
+      io.observe(el);
+    });
+  }
+  // Hide them at once, then turn the transition on. This script can run after the first paint (the analytics
+  // script file is fetched first), and hiding with the transition on would fade sections out on screen.
+  void document.body.offsetHeight;
+  document.documentElement.classList.add("reveal-on");
+</script>

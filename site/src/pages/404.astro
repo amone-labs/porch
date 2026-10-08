@@ -1,0 +1,27 @@
+---
+// Cloudflare Pages serves this for any path without a page; without it, unknown paths got the home page with a 200.
+// One file answers both locales, so it shows both.
+import { en } from "../i18n/en";
+import { ko } from "../i18n/ko";
+import Base from "../layouts/Base.astro";
+---
+<Base locale="en" title={`${en.notFound.title} · Porch`} description={en.notFound.body} noindex>
+  <main class="wrap missing">
+    <a class="mark" href="/">Porch</a>
+    <section class="stack">
+      <h1 class="h2">{en.notFound.title}</h1>
+      <p class="muted">{en.notFound.body}</p>
+      <a class="link" href="/">{en.notFound.home}</a>
+    </section>
+    <section class="stack" lang="ko">
+      <h2 class="h3">{ko.notFound.title}</h2>
+      <p class="muted">{ko.notFound.body}</p>
+      <a class="link" href="/ko/" hreflang="ko">{ko.notFound.home}</a>
+    </section>
+  </main>
+</Base>
+<style>
+  .missing { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 48px; }
+  .mark { font-weight: 700; font-size: 19px; text-decoration: none; letter-spacing: -0.02em; }
+  .stack { gap: 12px; }
+</style>

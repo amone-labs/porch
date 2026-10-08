@@ -1,0 +1,56 @@
+/* The "works" scene: three terminal windows, porch's menu-bar icon and the real session list. Shared by the
+   standalone clip (works.template.html) and the hero's session scene (hero.template.html), so every class is
+   wk- prefixed. `.wk` is the 1180×640 stage; the page scales it. Palette: near-black, achromatic. */
+.wk { position: absolute; left: 0; top: 0; width: 1180px; height: 640px; transform-origin: 0 0;
+  font-family: -apple-system, system-ui, sans-serif; color: #d8d8de; }
+
+/* macOS menu bar: porch's tray icon and, once a session waits, its count (the app sets it as the tray title) */
+.wk-menubar { position: absolute; z-index: 5; left: 0; top: 0; width: 1180px; height: 26px; background: rgba(255,255,255,0.045);
+  border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: flex-end; gap: 18px; padding: 0 16px;
+  font-size: 13px; color: #d0d0d6; font-variant-numeric: tabular-nums; }
+.wk-tray { position: relative; display: flex; align-items: center; gap: 4px; height: 22px; padding: 0 6px; border-radius: 5px; }
+.wk .wk-tray img { display: block; width: 18px; height: 18px; filter: invert(1); opacity: 0.92; }
+.wk-count { display: inline-block; min-width: 8px; font-weight: 500; color: #f2f2f5; opacity: 0; }
+.wk-ring { position: absolute; inset: -3px; border-radius: 7px; border: 1.5px solid rgba(237,237,240,0.9);
+  box-shadow: 0 0 0 4px rgba(237,237,240,0.08); opacity: 0; }
+
+/* terminal windows: each app keeps its own shape, and its name sits in the title bar */
+.wk-term { position: absolute; top: 46px; width: 352px; border-radius: 11px; background: #121215; border: 1px solid #27272d; overflow: hidden; }
+.wk-glow { position: absolute; inset: -1px; border-radius: 11px; border: 1.5px solid rgba(237,237,240,0.85);
+  box-shadow: 0 0 0 4px rgba(237,237,240,0.07); opacity: 0; pointer-events: none; z-index: 3; }
+.wk-bar { height: 28px; display: flex; align-items: center; gap: 7px; padding: 0 11px; background: #18181c; border-bottom: 1px solid #222227;
+  font-size: 12px; color: #8e8e98; }
+.wk-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a42; flex: 0 0 auto; }
+.wk-app { margin-left: 8px; color: #d6d6dc; font-weight: 600; }
+.wk-title { margin-left: auto; color: #6e6e78; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; }
+.wk-tabs { height: 24px; display: flex; align-items: flex-end; padding: 0 8px; background: #141417; border-bottom: 1px solid #222227; }
+.wk-tabs span { position: relative; font-size: 11px; color: #c9c9d1; padding: 4px 14px; background: #1d1d22; border: 1px solid #2a2a31; border-bottom: 0; border-radius: 6px 6px 0 0; }
+.wk-tabs span b { font-weight: 400; }
+.wk-tabs span b + b { position: absolute; left: 14px; top: 4px; opacity: 0; }
+.wk-code { position: absolute; left: 0; right: 0; }
+.wk pre { margin: 0; font: 12px/1.65 ui-monospace, "SF Mono", Menlo, monospace; padding: 9px 12px; color: #c9c9d1; white-space: pre; }
+.wk-dim { color: #6e6e78; }
+.wk-typed { display: inline-block; overflow: hidden; vertical-align: bottom; white-space: pre; width: 0; color: #f2f2f5; }
+.wk-cursor, .wk-cursor2 { display: inline-block; width: 7px; height: 14px; vertical-align: -2px; background: #d8d8de; }
+.wk-cursor2 { opacity: 0; }
+/* VS Code: activity bar on the left, an editor above, the TERMINAL panel below */
+.wk-vs-act { position: absolute; left: 0; top: 28px; bottom: 0; width: 30px; background: #151518; border-right: 1px solid #222227;
+  display: flex; flex-direction: column; align-items: center; gap: 9px; padding-top: 9px; }
+.wk-vs-act b { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid #4a4a54; }
+.wk-vs-act b:first-child { border-color: #9a9aa4; }
+.wk-vs-editor { position: absolute; left: 30px; right: 0; top: 28px; height: 36px; padding: 6px 12px; border-bottom: 1px solid #222227; }
+.wk-vs-editor s { display: block; height: 5px; margin: 5px 0; border-radius: 3px; background: #26262d; text-decoration: none; }
+.wk-vs-panel { position: absolute; left: 30px; right: 0; top: 64px; bottom: 0; }
+.wk-vs-head { height: 20px; display: flex; align-items: flex-end; gap: 14px; padding: 0 12px; font-size: 9.5px; letter-spacing: 0.06em; color: #6e6e78; }
+.wk-vs-head span:first-child { color: #d6d6dc; border-bottom: 1px solid #d6d6dc; padding-bottom: 2px; }
+.wk-vs-panel pre { padding-top: 4px; }
+
+/* the real session list: each project's group as it arrives, inside a frame drawn over them */
+.wk-list { position: absolute; z-index: 2; left: 150px; width: 990px; border-radius: 12px; border: 1px solid #26262c; pointer-events: none;
+  box-shadow: 0 0 0 8px #0a0a0c; } /* hides the groups' corners outside the frame's curve */
+.wk-group { position: absolute; z-index: 1; left: 150px; width: 990px; background-color: #0a0a0c; background-repeat: no-repeat; opacity: 0; will-change: transform; border-radius: 10px; }
+.wk-tag { position: absolute; left: 34px; width: 100px; display: flex; align-items: center; justify-content: flex-end; gap: 8px; opacity: 0;
+  font-size: 12px; font-weight: 600; color: #d6d6dc; }
+.wk-tag::after { content: ""; width: 12px; height: 1px; background: rgba(237,237,240,0.5); }
+.wk-focus { position: absolute; z-index: 3; border-radius: 9px; border: 1.5px solid rgba(237,237,240,0.92);
+  box-shadow: 0 0 0 4px rgba(237,237,240,0.08), 0 0 0 2000px rgba(5,5,7,0.36); opacity: 0; pointer-events: none; }

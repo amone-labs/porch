@@ -1,0 +1,25 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+import { labelClass } from "../i18n/util";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+---
+<section id="privacy" class="block" data-section="privacy">
+  <div class="wrap stack">
+    <p class={labelClass(locale)}>{t.privacy.eyebrow}</p>
+    <h2 class="h2">{t.privacy.headline}</h2>
+    <div class="cols">
+      {t.privacy.columns.map((c) => (
+        <div class="col stack"><h3>{c.label}</h3><p class="muted">{c.body}</p></div>
+      ))}
+    </div>
+    <p class="muted small under">{t.privacy.under}</p>
+    <p class="muted small">{t.privacy.site}</p>
+  </div>
+</section>
+<style>
+  .cols { display: grid; gap: 32px; margin-top: 16px; }
+  @media (min-width: 900px) { .cols { grid-template-columns: repeat(3, 1fr); } }
+  h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  p { overflow-wrap: anywhere; }
+</style>

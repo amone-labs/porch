@@ -1,0 +1,10 @@
+---
+import type { Copy, Locale } from "../../i18n/types";
+interface Props { t: Copy; locale: Locale; variant: "full" | "card" }
+const { t } = Astro.props;
+const s = t.scenes;
+---
+{/* each session with the terminal it was started in, as in the clip (video/build-works.mjs) */}
+{s.sessions.map((r, i) => (
+  <div class="row"><span class:list={["dot", r.dot]} /><span><span class="num">{r.title}</span><br /><span class="lbl">{r.state} · {r.project} · {s.windows[i].app}</span></span></div>
+))}

@@ -1,0 +1,18 @@
+---
+// Play/pause for a looping video (src/video-autoplay.ts). Hidden until the script runs, so without JS the video
+// shows only its poster. Its parent must be positioned.
+interface Props { play: string; pause: string }
+const { play, pause } = Astro.props;
+---
+<button class="video-toggle" type="button" hidden data-play={play} data-pause={pause} aria-label={play}>
+  <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M5 3.5v9l7-4.5z" /></svg>
+  <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4.5 3h2.5v10H4.5zM9 3h2.5v10H9z" /></svg>
+</button>
+<style>
+  .video-toggle { position: absolute; right: 14px; bottom: 14px; width: 36px; height: 36px; border-radius: 10px; border: 1px solid rgb(var(--border)); background: rgb(var(--elevated) / 0.85); color: rgb(var(--text)); display: grid; place-items: center; cursor: pointer; transition: background-color 0.12s; }
+  .video-toggle[hidden] { display: none; }
+  .video-toggle:hover { background: rgb(var(--raised)); }
+  .video-toggle svg { width: 16px; height: 16px; }
+  .video-toggle .i-pause, .video-toggle.is-playing .i-play { display: none; }
+  .video-toggle.is-playing .i-pause { display: block; }
+</style>

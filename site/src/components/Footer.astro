@@ -1,0 +1,34 @@
+---
+import type { Copy, Locale } from "../i18n/types";
+import { OPERATOR, RELEASE_NOTES_URL } from "../site";
+interface Props { t: Copy; locale: Locale }
+const { t, locale } = Astro.props;
+const other = locale === "en" ? { href: "/ko/", lang: "ko" } : { href: "/", lang: "en" };
+---
+<footer class="footer">
+  <div class="wrap row">
+    <div class="stack about">
+      <span class="mark">Porch</span>
+      <p class="muted small">{t.footer.blurb}</p>
+    </div>
+    <nav class="links small" aria-label="Footer">
+      <a class="link" href="#setup">{t.footer.getStarted}</a>
+      <a class="link" href="#privacy">{t.footer.privacy}</a>
+      <a class="link" href={locale === "ko" ? "/ko/privacy/" : "/privacy/"}>{t.footer.policy}</a>
+      <a class="link" href="#faq">{t.footer.faq}</a>
+      {RELEASE_NOTES_URL && <a class="link" href={RELEASE_NOTES_URL}>{t.footer.releaseNotes}</a>}
+      <a class="link" href={other.href} hreflang={other.lang} lang={other.lang} data-lang-switch>{t.nav.otherLang}</a>
+      <button type="button" class="link" data-consent-open hidden>{t.footer.cookies}</button>
+      <span class="faint">© 2026 {OPERATOR}</span>
+    </nav>
+  </div>
+</footer>
+<style>
+  .footer { border-top: 1px solid rgb(var(--border-soft)); padding: 40px 0 56px; }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
+  .about { gap: 8px; max-width: 420px; }
+  .mark { font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+  button.link { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+  button.link[hidden] { display: none; }
+</style>

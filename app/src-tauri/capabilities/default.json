@@ -1,0 +1,18 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Main window and menubar popover",
+  "windows": [
+    "main",
+    "popover"
+  ],
+  "permissions": [
+    "core:default",
+    "core:webview:allow-set-webview-zoom",
+    "core:window:allow-start-dragging",
+    "autostart:default",
+    "updater:default",
+    "process:allow-restart",
+    "dialog:allow-open"
+  ]
+}

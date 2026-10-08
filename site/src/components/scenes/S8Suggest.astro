@@ -1,0 +1,9 @@
+---
+import type { Copy, Locale } from "../../i18n/types";
+interface Props { t: Copy; locale: Locale; variant: "full" | "card" }
+const { t } = Astro.props;
+const s = t.scenes.suggest;
+---
+<p class="lbl">{s.kind}</p>
+<p class="num">{s.title}</p>
+<p class="lbl">{s.effect}</p>

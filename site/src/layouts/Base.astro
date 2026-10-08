@@ -1,0 +1,54 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/fonts.css";
+
+interface Props {
+  locale: "en" | "ko";
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+const { locale, title, description, noindex = false } = Astro.props;
+// Without SITE_URL there is no real origin; Astro.url would bake the build's localhost into the page.
+// Fall back to root-relative links and leave og:image out (scrapers need an absolute URL).
+const site = Astro.site;
+if (!site && import.meta.env.PROD) console.warn("[site] SITE_URL is not set: hreflang links are root-relative and og:image is omitted.");
+const href = (path: string) => (site ? new URL(path, site).href : path);
+// Canonical points at this page on the production origin, so a later custom domain and getporch.pages.dev
+// don't read as duplicates. Only indexable pages get one.
+const canonical = site && !noindex ? new URL(Astro.url.pathname, site).href : null;
+const ogLocale = { en: "en_US", ko: "ko_KR" } as const;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>document.documentElement.classList.add("js")</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" hreflang="en" href={href("/")} />
+    <link rel="alternate" hreflang="ko" href={href("/ko/")} />
+    <link rel="alternate" hreflang="x-default" href={href("/")} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Porch" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    <meta property="og:locale:alternate" content={ogLocale[locale === "en" ? "ko" : "en"]} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {site && <meta property="og:image" content={href(`/og-${locale}.png`)} />}
+    {site && <meta property="og:image:width" content="1200" />}
+    {site && <meta property="og:image:height" content="630" />}
+    {site && <meta property="og:image:alt" content={title} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0a0a0c" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

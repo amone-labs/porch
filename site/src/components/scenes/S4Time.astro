@@ -1,0 +1,9 @@
+---
+import type { Copy, Locale } from "../../i18n/types";
+import { MOCK, fmtDuration, sharePct } from "../../mock";
+interface Props { t: Copy; locale: Locale; variant: "full" | "card" }
+const { t, locale } = Astro.props;
+---
+{MOCK.tasks.map((task, i) => (
+  <div class="row"><span class="lbl">{t.mock.tasks[i]}</span><span class="num">{fmtDuration(task.min, locale)} · {sharePct(task.min, MOCK.totalMin)}%</span></div>
+))}
