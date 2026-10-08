@@ -1,6 +1,6 @@
 ---
 import type { Copy, Locale } from "../i18n/types";
-import { OPERATOR, RELEASE_NOTES_URL } from "../site";
+import { OPERATOR, RELEASE_NOTES_URL, REPO_URL } from "../site";
 interface Props { t: Copy; locale: Locale }
 const { t, locale } = Astro.props;
 const other = locale === "en" ? { href: "/ko/", lang: "ko" } : { href: "/", lang: "en" };
@@ -17,6 +17,7 @@ const other = locale === "en" ? { href: "/ko/", lang: "ko" } : { href: "/", lang
       <a class="link" href={locale === "ko" ? "/ko/privacy/" : "/privacy/"}>{t.footer.policy}</a>
       <a class="link" href="#faq">{t.footer.faq}</a>
       {RELEASE_NOTES_URL && <a class="link" href={RELEASE_NOTES_URL}>{t.footer.releaseNotes}</a>}
+      {REPO_URL && <a class="link" href={REPO_URL}>{t.footer.source}</a>}
       <a class="link" href={other.href} hreflang={other.lang} lang={other.lang} data-lang-switch>{t.nav.otherLang}</a>
       <button type="button" class="link" data-consent-open hidden>{t.footer.cookies}</button>
       <span class="faint">© 2026 {OPERATOR}</span>

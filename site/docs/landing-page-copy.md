@@ -8,9 +8,11 @@
 
 ## 0 Nav
 
-EN: `porch.` · How it works · Privacy · FAQ · EN/KO · [Download] (ghost)
+EN: `porch.` · How it works · Privacy · FAQ · GitHub · EN/KO · [Download] (ghost)
 
-KO: `porch.` · 작동 방식 · 개인정보 · 자주 묻는 질문 · EN/KO · [다운로드] (ghost)
+KO: `porch.` · 작동 방식 · 개인정보 · 자주 묻는 질문 · GitHub · EN/KO · [다운로드] (ghost)
+
+GitHub (both languages, hidden on phones) appears only once `REPO_URL` in `site/src/site.ts` is set, that is, once the repository is public.
 
 ## 1 Hero
 
@@ -169,6 +171,8 @@ Line under: EN "Porch also goes online to check for updates." / KO "업데이트
 
 Site line (source: ADR 0006 site analytics; short on purpose, no vendor name): EN "This site collects visit statistics; it stores a cookie only if you allow it. Change this in Cookie settings at the bottom of the page." / KO "이 사이트는 방문 통계를 모으며, 쿠키는 허용했을 때만 저장합니다. 맨 아래 쿠키 설정에서 바꿀 수 있습니다."
 
+Source line (only once the repository is public; link text "See the code" / "코드 보기"): EN "Porch is open source (AGPL-3.0-only): what it reads and sends is in the code." / KO "Porch는 오픈소스(AGPL-3.0-only)입니다. 무엇을 읽고 보내는지 코드에서 확인할 수 있습니다."
+
 ## 10 Setup
 
 Eyebrow: Get started / 시작하기
@@ -250,10 +254,11 @@ Close — two cards side by side:
 
 Footer:
 - Left: `porch.` wordmark, one line: EN "Porch is a Mac app for looking back on your work with Claude Code and Codex." / KO "Porch는 클로드코드와 코덱스로 한 일을 돌아보는 맥 앱입니다."
-- Links (EN): Get started · Privacy · Privacy Policy · FAQ · Release notes · EN/KO · Cookie settings
-- Links (KO): 시작하기 · 개인정보 · 개인정보처리방침 · 자주 묻는 질문 · 변경 기록 · EN/KO · 쿠키 설정
+- Links (EN): Get started · Privacy · Privacy Policy · FAQ · Release notes · Source code · EN/KO · Cookie settings
+- Links (KO): 시작하기 · 개인정보 · 개인정보처리방침 · 자주 묻는 질문 · 변경 기록 · 소스 코드 · EN/KO · 쿠키 설정
 - Privacy Policy / 개인정보처리방침 opens /privacy/ or /ko/privacy/; its text lives in `site/src/i18n/policy.ts`.
 - Release notes / 변경 기록 appears only once it is published in both languages.
+- Source code / 소스 코드 appears only once the repository is public (`REPO_URL`).
 - Cookie settings / 쿠키 설정 appears only in a build with the PostHog key (ADR 0006); it brings the consent banner back.
 - © 2026
 

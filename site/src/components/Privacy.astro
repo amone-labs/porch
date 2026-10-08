@@ -1,6 +1,7 @@
 ---
 import type { Copy, Locale } from "../i18n/types";
 import { labelClass } from "../i18n/util";
+import { REPO_URL } from "../site";
 interface Props { t: Copy; locale: Locale }
 const { t, locale } = Astro.props;
 ---
@@ -15,6 +16,7 @@ const { t, locale } = Astro.props;
     </div>
     <p class="muted small under">{t.privacy.under}</p>
     <p class="muted small">{t.privacy.site}</p>
+    {REPO_URL && <p class="muted small">{t.privacy.source} <a class="link" href={REPO_URL}>{t.privacy.sourceLink}</a></p>}
   </div>
 </section>
 <style>

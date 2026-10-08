@@ -150,6 +150,8 @@ export const ko: Copy = {
     ],
     under: "업데이트 확인에도 인터넷을 씁니다.",
     site: "이 사이트는 방문 통계를 모으며, 쿠키는 허용했을 때만 저장합니다. 맨 아래 쿠키 설정에서 바꿀 수 있습니다.",
+    source: "Porch는 오픈소스(AGPL-3.0-only)입니다. 무엇을 읽고 보내는지 코드에서 확인할 수 있습니다.",
+    sourceLink: "코드 보기",
   },
   setup: {
     eyebrow: "시작하기",
@@ -214,6 +216,7 @@ export const ko: Copy = {
     releaseNotes: "변경 기록",
     cookies: "쿠키 설정",
     policy: "개인정보처리방침",
+    source: "소스 코드",
   },
   consent: {
     label: "쿠키 선택",
