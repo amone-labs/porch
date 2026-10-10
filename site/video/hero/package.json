@@ -1,6 +1,7 @@
 {
   "name": "hero",
   "private": true,
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "dev": "npx --yes hyperframes@0.8.101 preview",
