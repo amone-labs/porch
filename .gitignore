@@ -21,3 +21,8 @@ site/video/assets-en/
 site/video/hero/snapshots/
 site/video/hero/node_modules/
 site/video/hero/renders/
+
+# Maintainer-only planning belongs in porch-lab.
+/docs/product/
+/docs/open-questions.md
+/docs/validation.md

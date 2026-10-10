@@ -129,3 +129,23 @@ Documents and comments are written in English. Living documents under `docs/` ar
 `docs/decisions/NNNN-*.md`. Unresolved questions live in `docs/open-questions.md` until
 they become an ADR; that file, `docs/product/` and `docs/validation.md` are kept in the
 maintainer's checkout, not in the repo.
+
+
+## Private planning and public promotion
+
+Product hypotheses, business planning, customer research and unvalidated designs
+belong in the maintainer's private `porch-lab` repository, not in public `docs/`.
+The usual local checkout is `../porch-lab` relative to the main porch checkout;
+worktrees must resolve it from the main checkout, not from their own parent folder.
+If it is unavailable, keep drafts outside tracked public files and report that.
+
+Read the private workspace's AGENTS.md for its document and review workflow.
+Keep adopted technical specifications and product implementation in porch.
+Document review does not establish customer demand or supersede accepted ADRs.
+
+Never merge, cherry-pick or push private planning history into this public repo.
+After the maintainer authorizes promotion, write a fresh, minimal technical document
+or implementation patch in a porch worktree. Inspect the staged public diff for
+private research, customer details, credentials and unsupported claims before
+committing or pushing. A request to draft or review does not authorize publication.
+Record the public commit or PR in the private source document after promotion.
