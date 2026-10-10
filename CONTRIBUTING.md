@@ -24,4 +24,4 @@ That build still checks porch's update feed, and installing an update from it re
 
 ## License
 
-Contributions are accepted under the project's license, [AGPL-3.0-only](LICENSE).
+Contributions are accepted under the project's license, [Apache-2.0](LICENSE).

@@ -5,7 +5,7 @@ members = ["crates/core", "crates/hook", "crates/cli", "app/src-tauri"]
 [workspace.package]
 version = "0.1.1"
 edition = "2021"
-license = "AGPL-3.0-only"
+license = "Apache-2.0"
 
 [workspace.dependencies]
 serde = { version = "1", features = ["derive"] }

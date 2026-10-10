@@ -1,6 +1,7 @@
 {
   "name": "porch-site",
   "private": true,
+  "license": "Apache-2.0",
   "type": "module",
   "packageManager": "pnpm@10.11.1",
   "scripts": {

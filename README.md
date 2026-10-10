@@ -67,4 +67,4 @@ Either agent writes summaries of both agents' records. Cost for models routed th
 
 ## License
 
-[AGPL-3.0-only](LICENSE). Copyright (C) 2026 amone-labs. To contribute, see [CONTRIBUTING.md](CONTRIBUTING.md).
+[Apache-2.0](LICENSE). Copyright (C) 2026 amone-labs. To contribute, see [CONTRIBUTING.md](CONTRIBUTING.md).

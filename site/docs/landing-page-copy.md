@@ -171,7 +171,7 @@ Line under: EN "Porch also goes online to check for updates." / KO "업데이트
 
 Site line (source: ADR 0006 site analytics; short on purpose, no vendor name): EN "This site collects visit statistics; it stores a cookie only if you allow it. Change this in Cookie settings at the bottom of the page." / KO "이 사이트는 방문 통계를 모으며, 쿠키는 허용했을 때만 저장합니다. 맨 아래 쿠키 설정에서 바꿀 수 있습니다."
 
-Source line (only once the repository is public; link text "See the code" / "코드 보기"): EN "Porch is open source (AGPL-3.0-only): what it reads and sends is in the code." / KO "Porch는 오픈소스(AGPL-3.0-only)입니다. 무엇을 읽고 보내는지 코드에서 확인할 수 있습니다."
+Source line (only once the repository is public; link text "See the code" / "코드 보기"): EN "Porch is open source (Apache-2.0): what it reads and sends is in the code." / KO "Porch는 오픈소스(Apache-2.0)입니다. 무엇을 읽고 보내는지 코드에서 확인할 수 있습니다."
 
 ## 10 Setup
 

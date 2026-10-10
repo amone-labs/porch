@@ -67,4 +67,4 @@ porch help      # 모든 명령
 
 ## 라이선스
 
-[AGPL-3.0-only](LICENSE). Copyright (C) 2026 amone-labs. 기여 방법은 [CONTRIBUTING.md](CONTRIBUTING.md)를 보세요.
+[Apache-2.0](LICENSE). Copyright (C) 2026 amone-labs. 기여 방법은 [CONTRIBUTING.md](CONTRIBUTING.md)를 보세요.

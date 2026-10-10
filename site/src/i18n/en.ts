@@ -151,7 +151,7 @@ export const en: Copy = {
     ],
     under: "Porch also goes online to check for updates.",
     site: "This site collects visit statistics; it stores a cookie only if you allow it. Change this in Cookie settings at the bottom of the page.",
-    source: "Porch is open source (AGPL-3.0-only): what it reads and sends is in the code.",
+    source: "Porch is open source (Apache-2.0): what it reads and sends is in the code.",
     sourceLink: "See the code",
   },
   setup: {

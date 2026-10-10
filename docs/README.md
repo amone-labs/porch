@@ -28,6 +28,7 @@
 | [0011](decisions/0011-english.md) | Korean or English, with one set of summary instructions per language |
 | [0012](decisions/0012-model-evaluates-work-style.md) | A model evaluates the week's way of working |
 | [0013](decisions/0013-status-board-shows-progress.md) | Sessions shows progress and takes you to the session's window; no "unread" marker |
+| [0014](decisions/0014-apache-2-license.md) | Apache License 2.0 for porch |
 
 ## Diagrams
 
